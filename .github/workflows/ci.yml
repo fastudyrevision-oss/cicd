@@ -29,7 +29,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run tests
-        run: npm test
+        run: npx jest
 
       - name: Build, tag and push image
         run: |
