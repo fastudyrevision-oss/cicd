@@ -2,7 +2,10 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - "main"
+    tags:
+      - "v*"
 
 jobs:
   deploy:
@@ -22,6 +25,9 @@ jobs:
       - name: Login to Amazon ECR
         run: |
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY }}
+
+      - name: Run tests
+        run: npm test
 
       - name: Build, tag and push image
         run: |
